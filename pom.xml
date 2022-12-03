@@ -1,0 +1,48 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.roach.retry-demo</groupId>
+    <artifactId>retry-demo-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <java.version>1.8</java.version>
+
+    </properties>
+
+    <modules>
+        <module>retry-demo-javaee</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:git://github.com/kai-niemi/retry-demo.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/kai-niemi/retry-demo.git</developerConnection>
+        <url>https://github.com/kai-niemi/retry-demo</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Kai Niemi</name>
+            <organization>Cockroach Labs</organization>
+            <organizationUrl>https://www.cockroachlabs.com/</organizationUrl>
+            <timezone>UTC+1</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <build>
+    </build>
+</project>
