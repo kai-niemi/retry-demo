@@ -18,6 +18,7 @@
 
     <modules>
         <module>retry-demo-javaee</module>
+        <module>retry-demo-spring</module>
     </modules>
 
     <scm>
