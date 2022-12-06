@@ -34,7 +34,7 @@ Open another shell and check that the service is up and connected to the DB:
            
 This prints out an order form template that we will use to create new orders:
 
-    curl http://localhost:8090/api/order/template| jq
+    curl http://localhost:8090/api/order/template | jq
 
 alt pipe it to a file:
 

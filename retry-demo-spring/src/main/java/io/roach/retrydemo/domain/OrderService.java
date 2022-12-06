@@ -28,9 +28,11 @@ public class OrderService {
     private EntityManager entityManager;
 
     public List<Order> findAllOrders() {
-        Assert.isTrue(!entityManager.isJoinedToTransaction(), "Expected no transaction!");
+        Assert.isTrue(TransactionSynchronizationManager.isActualTransactionActive(), "Expected transaction!");
+
         CriteriaQuery<Order> cq = entityManager.getCriteriaBuilder().createQuery(Order.class);
         cq.select(cq.from(Order.class));
+
         return entityManager.createQuery(cq).getResultList();
     }
 
