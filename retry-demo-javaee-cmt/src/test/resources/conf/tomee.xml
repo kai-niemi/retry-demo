@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <!-- <Deployments dir="apps" /> -->
+<Resource id="orderSystemDS" type="DataSource">
+    JdbcDriver   org.postgresql.Driver
+    JdbcUrl      jdbc:postgresql://localhost:26257/orders
+    <!--    JdbcUrl      jdbc:postgresql://192.168.1.99:26257/orders-->
+    UserName     root
+    Password
+</Resource>
+</tomee>

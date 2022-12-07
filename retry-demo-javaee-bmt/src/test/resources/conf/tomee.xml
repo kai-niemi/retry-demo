@@ -6,8 +6,8 @@
   <!-- <Deployments dir="apps" /> -->
 <Resource id="orderSystemDS" type="DataSource">
     JdbcDriver   org.postgresql.Driver
-<!--    JdbcUrl      jdbc:postgresql://192.168.1.99:26257/orders-->
     JdbcUrl      jdbc:postgresql://localhost:26257/orders
+    <!--    JdbcUrl      jdbc:postgresql://192.168.1.99:26257/orders-->
     UserName     root
     Password
 </Resource>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.NoSuchEntityException;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
@@ -18,6 +19,9 @@ import org.slf4j.Logger;
 import io.roach.retrydemo.TransactionBoundary;
 import io.roach.retrydemo.util.Assert;
 
+import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
+import static javax.ejb.TransactionAttributeType.REQUIRES_NEW;
+
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
 public class OrderService {
@@ -29,6 +33,7 @@ public class OrderService {
 
     public List<Order> findAllOrders() {
         Assert.isFalse(entityManager.isJoinedToTransaction(), "Expected no transaction!");
+
         CriteriaQuery<Order> cq = entityManager.getCriteriaBuilder().createQuery(Order.class);
         cq.select(cq.from(Order.class));
         return entityManager.createQuery(cq).getResultList();
@@ -44,12 +49,16 @@ public class OrderService {
 
     @TransactionBoundary
     public Order placeOrder(Order order) {
+        Assert.isTrue(entityManager.isJoinedToTransaction(), "Expected transaction!");
+
         entityManager.persist(order);
         return order;
     }
 
     @TransactionBoundary
     public Order updateOrder(Order order) {
+        Assert.isTrue(entityManager.isJoinedToTransaction(), "Expected transaction!");
+
         entityManager.merge(order);
         return order;
     }
@@ -89,6 +98,7 @@ public class OrderService {
     @TransactionBoundary
     public void deleteAll() {
         Assert.isTrue(entityManager.isJoinedToTransaction(), "Expected transaction!");
+
         Query removeAll = entityManager.createQuery("delete from Order");
         removeAll.executeUpdate();
     }

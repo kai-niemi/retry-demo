@@ -1,9 +1,9 @@
-# Transaction Retry Demo for JavaEE
-                                   
-This project demonstrates an AOP-driven retry strategy for JavaEE 
+# Transaction Retry Demo for JavaEE and CMTs
+
+This project demonstrates an AOP-driven retry strategy for JavaEE
 apps using the following stack:
 
-- Stateless session beans with bean managed transactions
+- Stateless session beans with container managed transactions (CMT)
 - `@AroundAdvice` interceptor for retries
 - `@TransactionBoundary` meta annotation with interceptor binding
 - JAX-RS REST endpoint for testing
@@ -27,11 +27,11 @@ Create the schema:
     cockroach sql --insecure --host=locahlost --database orders  < src/resources/conf/create.sql
 
 Start the app:
-             
+
     ../mvnw clean install tomee:run
-    
+
 The default listen port is `8090` (can be changed in pom.xml):
-    
+
 ## Usage
 
 Open another shell and check that the service is up and connected to the DB:
@@ -39,7 +39,7 @@ Open another shell and check that the service is up and connected to the DB:
     curl http://localhost:8090/api
 
 ### Step 1: Get Order Request Form
-           
+
 This prints out an order form template that we will use to create new orders:
 
     curl http://localhost:8090/api/order/template| jq
@@ -49,7 +49,7 @@ alt pipe it to a file:
     curl http://localhost:8090/api/order/template > form.json
 
 ### Submit Order Form
-   
+
 Create a new purchase order:
 
 ```bash
@@ -84,12 +84,12 @@ curl http://localhost:8090/api/order -H "Content-Type:application/json" -X POST 
 
 ### Produce a Read/Write Conflict
 
-Assuming we have an order with ID 1 in status `PLACED`. We will now read that order and 
-change the status to something else by using concurrent transactions. This is known as the 
+Assuming we have an order with ID 1 in status `PLACED`. We will now read that order and
+change the status to something else by using concurrent transactions. This is known as the
 `unrepeatable read` conflict, prevented by 1SR from happening.
 
-To have predictable outcome, we'll use two session with a controllable delay between the 
-read and write operations. 
+To have predictable outcome, we'll use two session with a controllable delay between the
+read and write operations.
 
 Overview of SQL operations:
 
@@ -104,7 +104,7 @@ update status='PAID' where id=1; -- T2
 commit; -- T1
 commit; -- T2 ERROR!
 ```
-                     
+
 Run the first command:
 
 ```bash

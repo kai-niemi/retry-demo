@@ -17,7 +17,8 @@
     </properties>
 
     <modules>
-        <module>retry-demo-javaee</module>
+        <module>retry-demo-javaee-bmt</module>
+        <module>retry-demo-javaee-cmt</module>
         <module>retry-demo-spring</module>
     </modules>
 

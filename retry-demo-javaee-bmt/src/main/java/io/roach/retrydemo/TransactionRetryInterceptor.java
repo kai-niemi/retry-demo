@@ -48,6 +48,7 @@ public class TransactionRetryInterceptor {
 
         for (int attempt = 1; attempt < MAX_RETRY_ATTEMPTS; attempt++) {
             try {
+                // Uses REQUIRES_NEW that will suspend current txn
                 Object rv = transactionService.executeWithinTransaction(ctx::proceed);
                 if (attempt > 1) {
                     logger.info("Recovered from transient error (attempt {}): {}",
